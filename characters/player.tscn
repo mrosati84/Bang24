@@ -105,6 +105,9 @@ animation = &"walk"
 frame = 1
 frame_progress = 0.18333
 
+[node name="Marker2D" type="Marker2D" parent="Body"]
+position = Vector2(0, -60)
+
 [node name="Turret" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3j8xk")
 animation = &"fire"

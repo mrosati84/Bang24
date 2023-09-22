@@ -1,17 +1,28 @@
 extends CharacterBody2D
 
 @export var speed = 150
+@export var rotation_smoothing = 0.02
+
+var last_mouse_position : Vector2 = Vector2.ZERO
 
 func _physics_process(_delta):
-	var movement = Input.get_vector("left", "right", "up", "down")
-	velocity = movement * speed
+	# gestisce rotazione del carro
+	var body_rotation = Input.get_axis("left", "right")
 	
-	if velocity != Vector2.ZERO:
-		$Body.play("walk")
+	if body_rotation != 0:
+		rotate(body_rotation * rotation_smoothing)
+		
+		# preserva la rotazione della torretta quando ruota anche il carro
+		if last_mouse_position != Vector2.ZERO:
+			rotate_turret(last_mouse_position)
+		if not $Body.is_playing():
+			$Body.play("walk")
 	else:
 		$Body.stop()
 	
-	# TODO: va ruotato verso la direzione di movimento prima di muovere
+	# gestisce movimento avanti/indietro
+	velocity = position.direction_to($Body/Marker2D.get_global_position()) * speed * Input.get_axis("down", "up")
+	
 	move_and_slide()
 
 func _process(_delta):
@@ -20,6 +31,9 @@ func _process(_delta):
 
 func _input(event):
 	if event is InputEventMouse:
-		# TODO: la rotazione è sbagliata
-		$Turret.look_at(event.position)
-		$Turret.rotate(PI/2)
+		last_mouse_position = event.position
+		rotate_turret(last_mouse_position)
+
+func rotate_turret(mouse_position: Vector2):
+	$Turret.look_at(mouse_position)
+	$Turret.rotate(PI/2)
