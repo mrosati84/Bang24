@@ -14,6 +14,10 @@ func _physics_process(_delta):
 	# TODO: va ruotato verso la direzione di movimento prima di muovere
 	move_and_slide()
 
+func _process(_delta):
+	if Input.is_action_just_pressed("fire"):
+		$Turret.fire()
+
 func _input(event):
 	if event is InputEventMouse:
 		# TODO: la rotazione è sbagliata
