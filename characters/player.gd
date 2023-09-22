@@ -18,3 +18,4 @@ func _input(event):
 	if event is InputEventMouse:
 		# TODO: la rotazione è sbagliata
 		$Turret.look_at(event.position)
+		$Turret.rotate(PI/2)
