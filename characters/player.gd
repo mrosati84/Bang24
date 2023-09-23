@@ -36,7 +36,7 @@ func _physics_process(_delta):
 
 func _process(_delta):
 	if Input.is_action_just_pressed("fire"):
-		turret.fire()
+		turret.fire(turret.global_position, turret.global_rotation)
 
 func rotate_turret():
 	# usa lerp_angle per una rotazione morbida
