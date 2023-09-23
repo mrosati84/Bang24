@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://cpi8ktierddsl"]
+[gd_scene load_steps=19 format=3 uid="uid://cpi8ktierddsl"]
 
 [ext_resource type="Texture2D" uid="uid://disae1uwtwadc" path="res://art/Blue/Bodies/body_halftrack.png" id="1_185va"]
 [ext_resource type="Script" path="res://characters/player.gd" id="1_fsec1"]
+[ext_resource type="Script" path="res://characters/player_camera.gd" id="2_6vc3i"]
 [ext_resource type="Texture2D" uid="uid://caffi28754mta" path="res://art/Blue/Weapons/turret_01_mk1.png" id="2_x5s4s"]
 [ext_resource type="Script" path="res://characters/turret.gd" id="4_r6hf1"]
 
@@ -98,6 +99,11 @@ size = Vector2(52, 73)
 z_index = 1
 script = ExtResource("1_fsec1")
 metadata/_edit_group_ = true
+
+[node name="PlayerCamera" type="Camera2D" parent="."]
+process_callback = 0
+position_smoothing_enabled = true
+script = ExtResource("2_6vc3i")
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_obq75")
