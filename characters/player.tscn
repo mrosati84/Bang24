@@ -1,11 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://cpi8ktierddsl"]
+[gd_scene load_steps=20 format=3 uid="uid://cpi8ktierddsl"]
 
 [ext_resource type="Texture2D" uid="uid://disae1uwtwadc" path="res://art/Blue/Bodies/body_halftrack.png" id="1_185va"]
 [ext_resource type="Script" path="res://characters/player.gd" id="1_fsec1"]
 [ext_resource type="Script" path="res://characters/player_camera.gd" id="2_6vc3i"]
 [ext_resource type="Texture2D" uid="uid://caffi28754mta" path="res://art/Blue/Weapons/turret_01_mk1.png" id="2_x5s4s"]
 [ext_resource type="Script" path="res://characters/turret.gd" id="4_r6hf1"]
-[ext_resource type="PackedScene" uid="uid://cxsjelq50er6p" path="res://characters/Bullet.tscn" id="5_7gn3t"]
+[ext_resource type="PackedScene" uid="uid://cxsjelq50er6p" path="res://characters/bullet.tscn" id="6_m2t0r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y4j8x"]
 atlas = ExtResource("1_185va")
@@ -120,10 +120,7 @@ position = Vector2(0, -60)
 sprite_frames = SubResource("SpriteFrames_3j8xk")
 animation = &"fire"
 script = ExtResource("4_r6hf1")
-bullet = ExtResource("5_7gn3t")
-
-[node name="BulletSpawn" type="Node2D" parent="Turret"]
-position = Vector2(2.08165e-12, -50)
+bullet = ExtResource("6_m2t0r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3.5)
