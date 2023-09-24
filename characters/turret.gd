@@ -2,7 +2,6 @@ extends AnimatedSprite2D
 
 @export var bullet : PackedScene
 
-
 func _process(_delta):
 	if Input.is_action_just_pressed("fire"):
 		fire(global_position, global_rotation)
