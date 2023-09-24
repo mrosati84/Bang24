@@ -96,7 +96,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g77uf"]
 size = Vector2(52, 73)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 1
 position = Vector2(83, 20)
 script = ExtResource("1_fsec1")
@@ -114,13 +114,16 @@ frame = 1
 frame_progress = 0.18333
 
 [node name="Marker2D" type="Marker2D" parent="Body"]
-position = Vector2(0, -60)
+position = Vector2(0, -55)
 
 [node name="Turret" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3j8xk")
 animation = &"fire"
 script = ExtResource("4_r6hf1")
 bullet = ExtResource("6_m2t0r")
+
+[node name="Marker2D" type="Marker2D" parent="Turret"]
+position = Vector2(0, -55)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3.5)

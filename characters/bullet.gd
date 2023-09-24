@@ -5,8 +5,10 @@ extends Area2D
 var direction : Vector2
 
 func _ready():
-	direction = Vector2(0,-1).rotated(rotation)
-	print(direction)
+	direction = Vector2.UP.rotated(rotation)
 
 func _physics_process(_delta):
 	position = position + direction * speed
+
+func _on_body_entered(_body):
+	queue_free()

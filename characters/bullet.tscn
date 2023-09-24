@@ -4,10 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://dqi4yixvchwnw" path="res://art/bullet.png.png" id="2_jdrv4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j277a"]
-radius = 33.0
-height = 126.0
+radius = 26.6667
+height = 106.667
 
 [node name="Bullet" type="Area2D"]
+z_index = 1
 scale = Vector2(0.15, 0.15)
 script = ExtResource("1_7o40a")
 speed = 12.0
@@ -17,3 +18,5 @@ texture = ExtResource("2_jdrv4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_j277a")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

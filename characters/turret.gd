@@ -7,7 +7,6 @@ func _process(_delta):
 	if Input.is_action_just_pressed("fire"):
 		fire(global_position, global_rotation)
 
-
 func fire(pos, rot):
 	# cooldown che dura quanto l'animazione
 	if not is_playing():

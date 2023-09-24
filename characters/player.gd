@@ -4,16 +4,21 @@ extends CharacterBody2D
 @export var body_rotation_smoothing = 0.02
 @export var turret_rotation_smoothing = 0.05
 @export var acceleration = 0.1
+@export var controllable = true
 
 # oggetto di riferimento che punta sempre davanti al carro
 # e viene usato per dare la direzione di movimento in avanti
 @onready var forward_marker : Marker2D = $Body/Marker2D
+@onready var fire_marker : Marker2D = $Turret/Marker2D
 @onready var body : AnimatedSprite2D = $Body
 @onready var turret : AnimatedSprite2D = $Turret
 
 var last_mouse_position : Vector2 = Vector2.ZERO
 
 func _physics_process(_delta):
+	if not controllable:
+		return
+
 	# gestisce rotazione del carro
 	var body_rotation = Input.get_axis("left", "right")
 	
@@ -36,7 +41,8 @@ func _physics_process(_delta):
 
 func _process(_delta):
 	if Input.is_action_just_pressed("fire"):
-		turret.fire(turret.global_position, turret.global_rotation)
+		if controllable:
+			turret.fire(fire_marker.global_position, fire_marker.global_rotation)
 
 func rotate_turret():
 	# usa lerp_angle per una rotazione morbida
