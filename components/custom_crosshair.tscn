@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dng21molyj3cf"]
+
+[ext_resource type="Script" path="res://components/custom_crosshair.gd" id="1_0j8ya"]
+[ext_resource type="Texture2D" uid="uid://dct3jjp7ypgt4" path="res://art/crosshair.png" id="2_ft28f"]
+
+[node name="CustomCrosshair" type="Node"]
+script = ExtResource("1_0j8ya")
+crosshair_file = ExtResource("2_ft28f")
