@@ -1,6 +1,11 @@
 extends Area2D
 
+# @TODO
+# cancellare / far explodere il proiettile dopo tot tempo/pixel
+# oppure limitare l'area di gioco con dei collider e farlo esplodere?
+
 @export var speed : float = 1.0
+@export var explosion : PackedScene
 
 var direction : Vector2
 
@@ -11,4 +16,22 @@ func _physics_process(_delta):
 	position = position + direction * speed
 
 func _on_body_entered(_body):
+	explode()
+
+func explode():
+	# hide the bullet sprite
+	hide()
+	
+	# add the explosion and assign it the bullet position
+	var e = explosion.instantiate()
+	e.global_position = global_position
+	
+	# connect programmatically the animation_finished signal
+	e.animation_finished.connect(_on_explosion_animation_finished)
+	
+	# add the explosion to the tree
+	get_tree().root.add_child(e)
+
+func _on_explosion_animation_finished():
+	# explosion animation finished, delete the bullet
 	queue_free()
