@@ -321,6 +321,7 @@ animations = [{
 }]
 
 [node name="Explosion" type="AnimatedSprite2D"]
+z_index = 1
 sprite_frames = SubResource("SpriteFrames_ync2j")
 animation = &"explosion_1"
 script = ExtResource("76_o3xoq")
