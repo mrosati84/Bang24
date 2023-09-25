@@ -13,8 +13,13 @@ extends CharacterBody2D
 @onready var fire_marker : Marker2D = $Turret/Marker2D
 @onready var body : AnimatedSprite2D = $Body
 @onready var turret : AnimatedSprite2D = $Turret
+@onready var camera : Camera2D = $PlayerCamera
 
 var last_mouse_position : Vector2 = Vector2.ZERO
+
+func _ready():
+	if not controllable:
+		camera.queue_free()
 
 func _physics_process(delta):
 	if not controllable:
