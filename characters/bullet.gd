@@ -8,19 +8,24 @@ extends Area2D
 @export var explosion : PackedScene
 
 var direction : Vector2
+var impacted : bool = false
 
 func _ready():
 	direction = Vector2.UP.rotated(rotation)
 
 func _process(delta):
-	position += direction * delta * bullet_speed
+	if not impacted:
+		position += direction * delta * bullet_speed
 
 func _on_body_entered(_body):
-	explode()
+	if not impacted:
+		explode()
 
 func explode():
 	# hide the bullet sprite
 	hide()
+	$CollisionShape2D.disabled = true
+	impacted = true
 	
 	# add the explosion and assign it the bullet position
 	var e = explosion.instantiate()

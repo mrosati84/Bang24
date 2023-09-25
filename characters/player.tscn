@@ -92,8 +92,9 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g77uf"]
-size = Vector2(62, 76)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j0ulj"]
+radius = 29.0
+height = 84.0
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 1
@@ -125,4 +126,4 @@ position = Vector2(0, -55)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)
-shape = SubResource("RectangleShape2D_g77uf")
+shape = SubResource("CapsuleShape2D_j0ulj")
