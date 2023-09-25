@@ -3,6 +3,7 @@ extends Control
 @export var Address = "127.0.0.1"
 @export var port = 8910
 @export var maxPlayers = 8
+@export var Logger : RichTextLabel
 
 var isServer = false
 var peer
@@ -28,6 +29,7 @@ func _ready():
 	multiplayer.connection_failed.connect(connection_failed)
 	
 	if "--server" in OS.get_cmdline_args():
+		print("Hosting a standalone server...")
 		hostGame()
 		
 	$PlayerName.text = generate_random_nickname();
@@ -40,7 +42,8 @@ func _process(_delta):
 
 # this get called on the server and clients
 func peer_connected(id):
-	print("[SERVER] Player Connected " + str(id))
+	Logger.append_log("Player Connected: " + str(id))
+	print("Player Connected: " + str(id))
 
 # this get called on the server and clients
 func peer_disconnected(id):
@@ -51,15 +54,18 @@ func peer_disconnected(id):
 		if p.name == str(id):
 			p.queue_free()
 			
-	print("[SERVER] Player Disconnected " + str(id))
+	Logger.append_log("Player Disconnected: " + str(id))
+	print("Player Disconnected: " + str(id))
 
 # called only from clients
 func connected_to_server():
+	Logger.append_log("[CLIENT] Successfully connected to the server!")
 	print("[CLIENT] Successfully connected to the server!")
 	SendPlayerInformation.rpc_id(1, $PlayerName.text, multiplayer.get_unique_id())
 
 # called only from clients
 func connection_failed():
+	Logger.append_log("[CLIENT] Unable to connect to the server.")
 	print("[CLIENT] Unable to connect to the server.")
 
 @rpc("any_peer")
@@ -81,12 +87,15 @@ func hostGame():
 	peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(port, maxPlayers)
 	if error != OK:
+		Logger.append_log("[SERVER] ERROR: unable to host: " + error)
 		print("[SERVER] ERROR: unable to host: " + error)
 		return
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	
 	multiplayer.set_multiplayer_peer(peer)
-	print("[SERVER] Waiting For Players!")
+	
+	Logger.append_log("[SERVER] Waiting For Players...")
+	print("[SERVER] Waiting For Players...")
 	
 func _on_host_button_down():
 	hostGame()
@@ -103,12 +112,15 @@ func _on_join_button_down():
 
 func _on_start_game_button_down():
 	if (MultiplayerManager.Players.size() >= 2):
+		Logger.append_log("Starting game...")
 		StartGame.rpc()
 	else:
-		print("[SERVER][ERROR] At least 2 players are needed to start the game!")
+		Logger.append_log("[ERROR] At least 2 players are needed to start the game!")
+		print("[ERROR] At least 2 players are needed to start the game!")
 	pass # Replace with function body.
 
 func _on_quit_game_button_down():
+	Logger.append_log("Bye Bye!")
 	get_tree().quit()
 	pass # Replace with function body.
 	
@@ -118,3 +130,5 @@ func StartGame():
 		var scene = load("res://levels/main.tscn").instantiate()
 		get_tree().root.add_child(scene)
 		self.hide()
+	else:
+		Logger.append_log("Game started.")	
