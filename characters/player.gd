@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed_module : float = 10000.0
+@export var speed_module : float = 150.0
 @export var body_rotation_smoothing = 0.02
 @export var turret_rotation_smoothing = 0.05
 @export var acceleration = 0.1
@@ -44,10 +44,8 @@ func _physics_process(delta):
 	# la direzione è data dalla direzione verso il forward marker, che è sempre
 	# diretto in avanti rispetto al carro, e all'asse up/down che decide se
 	# andare avanti o indietro.
-	# il modulo è dato dal parametro speed_module moltiplicato per delta, che
-	# rende la velocità indipendente dai frame al secondo
 	var speed_direction : Vector2 = position.direction_to(forward_marker.get_global_position()) * Input.get_axis("down", "up")
-	velocity = velocity.lerp(speed_direction * speed_module * delta, acceleration)
+	velocity = velocity.lerp(speed_direction * speed_module, acceleration)
 	
 	rotate_turret()
 	move_and_slide()
