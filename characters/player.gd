@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var turret_rotation_smoothing = 0.05
 @export var acceleration = 0.1
 @export var controllable = true
+@export var bullet : PackedScene
 
 # oggetto di riferimento che punta sempre davanti al carro
 # e viene usato per dare la direzione di movimento in avanti
@@ -42,7 +43,7 @@ func _physics_process(_delta):
 func _process(_delta):
 	if Input.is_action_just_pressed("fire"):
 		if controllable:
-			turret.fire(fire_marker.global_position, fire_marker.global_rotation)
+			fire(fire_marker.global_position, fire_marker.global_rotation)
 
 func rotate_turret():
 	# usa lerp_angle per una rotazione morbida
@@ -51,3 +52,15 @@ func rotate_turret():
 	var r = turret.global_rotation
 	
 	turret.global_rotation = lerp_angle(r, angle + PI/2, turret_rotation_smoothing)
+
+func fire(pos, rot):
+	# cooldown che dura quanto l'animazione
+	if not turret.is_playing():
+		turret.play("fire")
+		var b = bullet.instantiate()
+		
+		#@TODO: retrieve fields from $Turret instead of passing them
+		b.global_position = pos
+		b.global_rotation = rot
+		
+		get_tree().root.add_child(b)

@@ -1,10 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://cpi8ktierddsl"]
+[gd_scene load_steps=19 format=3 uid="uid://cpi8ktierddsl"]
 
 [ext_resource type="Texture2D" uid="uid://disae1uwtwadc" path="res://art/Blue/Bodies/body_halftrack.png" id="1_185va"]
 [ext_resource type="Script" path="res://characters/player.gd" id="1_fsec1"]
 [ext_resource type="Script" path="res://characters/player_camera.gd" id="2_6vc3i"]
 [ext_resource type="Texture2D" uid="uid://caffi28754mta" path="res://art/Blue/Weapons/turret_01_mk1.png" id="2_x5s4s"]
-[ext_resource type="Script" path="res://characters/turret.gd" id="4_r6hf1"]
 [ext_resource type="PackedScene" uid="uid://cxsjelq50er6p" path="res://characters/bullet.tscn" id="6_m2t0r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y4j8x"]
@@ -100,6 +99,7 @@ size = Vector2(52, 73)
 z_index = 1
 position = Vector2(83, 20)
 script = ExtResource("1_fsec1")
+bullet = ExtResource("6_m2t0r")
 metadata/_edit_group_ = true
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
@@ -119,8 +119,6 @@ position = Vector2(0, -55)
 [node name="Turret" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3j8xk")
 animation = &"fire"
-script = ExtResource("4_r6hf1")
-bullet = ExtResource("6_m2t0r")
 
 [node name="Marker2D" type="Marker2D" parent="Turret"]
 position = Vector2(0, -55)

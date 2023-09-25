@@ -4,7 +4,7 @@ extends Area2D
 # cancellare / far explodere il proiettile dopo tot tempo/pixel
 # oppure limitare l'area di gioco con dei collider e farlo esplodere?
 
-@export var speed : float = 1.0
+@export var bullet_speed : float = 200
 @export var explosion : PackedScene
 
 var direction : Vector2
@@ -12,8 +12,8 @@ var direction : Vector2
 func _ready():
 	direction = Vector2.UP.rotated(rotation)
 
-func _physics_process(_delta):
-	position = position + direction * speed
+func _process(delta):
+	position += direction * delta * bullet_speed
 
 func _on_body_entered(_body):
 	explode()
