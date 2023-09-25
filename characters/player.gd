@@ -21,7 +21,7 @@ func _ready():
 	if not controllable:
 		camera.queue_free()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if not controllable:
 		return
 
