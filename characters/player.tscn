@@ -93,7 +93,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g77uf"]
-size = Vector2(52, 73)
+size = Vector2(62, 76)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 1
@@ -124,5 +124,5 @@ animation = &"fire"
 position = Vector2(0, -55)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -3.5)
+position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_g77uf")
