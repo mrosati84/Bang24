@@ -13,30 +13,45 @@ extends CharacterBody2D
 
 var last_mouse_position : Vector2 = Vector2.ZERO
 
-func _physics_process(_delta):
-	# gestisce rotazione del carro
-	var body_rotation = Input.get_axis("left", "right")
-	
-	if body_rotation != 0:
-		rotate(body_rotation * body_rotation_smoothing)
-		
-		# preserva la rotazione della torretta quando ruota anche il carro
-		if last_mouse_position != Vector2.ZERO:
-			rotate_turret()
-		if not body.is_playing():
-			body.play("walk")
-	else:
-		body.stop()
-	
-	# gestisce movimento avanti/indietro
-	velocity = velocity.lerp(position.direction_to(forward_marker.get_global_position()) * speed * Input.get_axis("down", "up"), acceleration)
-	
-	rotate_turret()
-	move_and_slide()
+@export var bullet :PackedScene
 
-func _process(_delta):
-	if Input.is_action_just_pressed("fire"):
-		turret.fire(turret.global_position, turret.global_rotation)
+var syncPos = Vector2(0,0)
+var syncRot = 0
+
+func _ready():
+	$MultiplayerSynchronizer.set_multiplayer_authority(str(name).to_int())
+	$PlayerNameLabel.text = name
+
+func _physics_process(_delta):
+	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
+		# gestisce rotazione del carro
+		var body_rotation = Input.get_axis("left", "right")
+		
+		if body_rotation != 0:
+			rotate(body_rotation * body_rotation_smoothing)
+			
+			# preserva la rotazione della torretta quando ruota anche il carro
+			if last_mouse_position != Vector2.ZERO:
+				rotate_turret()
+			if not body.is_playing():
+				body.play("walk")
+		else:
+			body.stop()
+		
+		# gestisce movimento avanti/indietro
+		velocity = velocity.lerp(position.direction_to(forward_marker.get_global_position()) * speed * Input.get_axis("down", "up"), acceleration)
+		
+		syncPos = global_position
+		syncRot = global_rotation
+		
+		if Input.is_action_just_pressed("fire"):
+			fire.rpc()
+		
+		rotate_turret()
+		move_and_slide()
+	else:
+		global_position = global_position.lerp(syncPos, .5)
+		global_rotation = lerpf(global_rotation, syncRot, .5)
 
 func rotate_turret():
 	# usa lerp_angle per una rotazione morbida
@@ -45,3 +60,18 @@ func rotate_turret():
 	var r = turret.global_rotation
 	
 	turret.global_rotation = lerp_angle(r, angle + PI/2, turret_rotation_smoothing)
+
+@rpc("any_peer","call_local")
+func fire():
+	# cooldown che dura quanto l'animazione
+#	if not turret.is_playing():
+		turret.play("fire")
+		
+		var b = bullet.instantiate()
+		b.global_position = turret.global_position
+		b.global_rotation = turret.global_rotation
+		
+		get_tree().root.add_child(b)
+
+
+

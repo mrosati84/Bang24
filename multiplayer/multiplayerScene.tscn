@@ -1,0 +1,80 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwtcufnykv2gk"]
+
+[ext_resource type="Script" path="res://multiplayer/MultiplayerController.gd" id="1_ihuec"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ihuec")
+metadata/_edit_vertical_guides_ = [74.0]
+metadata/_edit_horizontal_guides_ = [120.0]
+
+[node name="GameTitle" type="Label" parent="."]
+layout_mode = 0
+offset_left = 77.0
+offset_top = 20.0
+offset_right = 145.0
+offset_bottom = 46.0
+text = "Bang24"
+uppercase = true
+
+[node name="FieldLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 70.0
+offset_right = 122.0
+offset_bottom = 96.0
+text = "Name"
+
+[node name="PlayerName" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 156.0
+offset_top = 68.0
+offset_right = 508.0
+offset_bottom = 99.0
+text = "n00b"
+
+[node name="Host" type="Button" parent="."]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 120.0
+offset_right = 251.0
+offset_bottom = 168.0
+mouse_default_cursor_shape = 2
+text = "Host"
+
+[node name="Join" type="Button" parent="."]
+layout_mode = 0
+offset_left = 270.0
+offset_top = 120.0
+offset_right = 447.0
+offset_bottom = 168.0
+mouse_default_cursor_shape = 2
+text = "Join"
+
+[node name="StartGame" type="Button" parent="."]
+layout_mode = 0
+offset_left = 479.0
+offset_top = 120.0
+offset_right = 656.0
+offset_bottom = 168.0
+mouse_default_cursor_shape = 2
+text = "Start Game"
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 188.0
+offset_right = 251.0
+offset_bottom = 236.0
+mouse_default_cursor_shape = 2
+text = "Quit"
+
+[connection signal="button_down" from="Host" to="." method="_on_host_button_down"]
+[connection signal="button_down" from="Join" to="." method="_on_join_button_down"]
+[connection signal="button_down" from="StartGame" to="." method="_on_start_game_button_down"]
+[connection signal="button_down" from="Quit" to="." method="_on_quit_game_button_down"]

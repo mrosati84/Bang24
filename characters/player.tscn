@@ -1,11 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://cpi8ktierddsl"]
+[gd_scene load_steps=21 format=3 uid="uid://cpi8ktierddsl"]
 
 [ext_resource type="Texture2D" uid="uid://disae1uwtwadc" path="res://art/Blue/Bodies/body_halftrack.png" id="1_185va"]
 [ext_resource type="Script" path="res://characters/player.gd" id="1_fsec1"]
 [ext_resource type="Script" path="res://characters/player_camera.gd" id="2_6vc3i"]
 [ext_resource type="Texture2D" uid="uid://caffi28754mta" path="res://art/Blue/Weapons/turret_01_mk1.png" id="2_x5s4s"]
-[ext_resource type="Script" path="res://characters/turret.gd" id="4_r6hf1"]
-[ext_resource type="PackedScene" uid="uid://cxsjelq50er6p" path="res://characters/Bullet.tscn" id="5_7gn3t"]
+[ext_resource type="PackedScene" uid="uid://bd4v1y1h7o4f6" path="res://characters/Bullet.tscn" id="5_7gn3t"]
+[ext_resource type="Script" path="res://characters/Turret.gd" id="5_b3j1j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y4j8x"]
 atlas = ExtResource("1_185va")
@@ -96,11 +96,37 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g77uf"]
 size = Vector2(52, 73)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1hwmc"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = false
+properties/0/sync = false
+properties/0/watch = false
+properties/1/path = NodePath("Turret:rotation")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
+properties/2/path = NodePath(".:syncPos")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
+properties/3/path = NodePath(".:syncRot")
+properties/3/spawn = true
+properties/3/sync = true
+properties/3/watch = false
+
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
 position = Vector2(83, 20)
 script = ExtResource("1_fsec1")
+bullet = ExtResource("5_7gn3t")
 metadata/_edit_group_ = true
+
+[node name="PlayerNameLabel" type="Label" parent="."]
+offset_left = -56.0
+offset_top = 40.0
+offset_right = 67.0
+offset_bottom = 66.0
+text = "PlayerName001"
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
 process_callback = 0
@@ -110,8 +136,6 @@ script = ExtResource("2_6vc3i")
 [node name="Body" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_obq75")
 animation = &"walk"
-frame = 1
-frame_progress = 0.18333
 
 [node name="Marker2D" type="Marker2D" parent="Body"]
 position = Vector2(0, -60)
@@ -119,8 +143,7 @@ position = Vector2(0, -60)
 [node name="Turret" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3j8xk")
 animation = &"fire"
-script = ExtResource("4_r6hf1")
-bullet = ExtResource("5_7gn3t")
+script = ExtResource("5_b3j1j")
 
 [node name="BulletSpawn" type="Node2D" parent="Turret"]
 position = Vector2(2.08165e-12, -50)
@@ -128,3 +151,8 @@ position = Vector2(2.08165e-12, -50)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3.5)
 shape = SubResource("RectangleShape2D_g77uf")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_interval = 0.1
+delta_interval = 0.1
+replication_config = SubResource("SceneReplicationConfig_1hwmc")
