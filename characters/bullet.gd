@@ -24,7 +24,7 @@ func _on_body_entered(_body):
 func explode():
 	# hide the bullet sprite
 	hide()
-	$CollisionShape2D.disabled = true
+	$CollisionShape2D.set_deferred("disabled", true)
 	impacted = true
 	
 	# add the explosion and assign it the bullet position
