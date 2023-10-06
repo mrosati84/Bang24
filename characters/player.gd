@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal damage_taken
+
 @export var speed_module : float = 150.0
 @export var body_rotation_smoothing = 0.02
 @export var turret_rotation_smoothing = 0.05
@@ -74,3 +76,6 @@ func fire(pos, rot):
 		b.global_rotation = rot
 		
 		get_tree().root.add_child(b)
+
+func _on_damageable_die():
+	queue_free()

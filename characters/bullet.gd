@@ -1,9 +1,5 @@
 extends Area2D
 
-# @TODO
-# cancellare / far explodere il proiettile dopo tot tempo/pixel
-# oppure limitare l'area di gioco con dei collider e farlo esplodere?
-
 @export var bullet_speed : float = 200
 @export var explosion : PackedScene
 
@@ -18,6 +14,9 @@ func _process(delta):
 		position += direction * delta * bullet_speed
 
 func _on_body_entered(_body):
+	if _body.is_in_group("Player"):
+		# colpito il player
+		_body.get_node("%Damageable").damage()
 	if not impacted:
 		explode()
 
