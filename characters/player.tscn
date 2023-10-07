@@ -103,6 +103,10 @@ script = ExtResource("1_fsec1")
 bullet = ExtResource("6_m2t0r")
 metadata/_edit_group_ = true
 
+[node name="Damageable" parent="." instance=ExtResource("4_yws8i")]
+z_index = 1
+position = Vector2(0, 50)
+
 [node name="PlayerCamera" type="Camera2D" parent="."]
 process_callback = 0
 position_smoothing_enabled = true
@@ -113,11 +117,6 @@ sprite_frames = SubResource("SpriteFrames_obq75")
 animation = &"walk"
 frame = 1
 frame_progress = 0.18333
-
-[node name="Damageable" parent="Body" instance=ExtResource("4_yws8i")]
-unique_name_in_owner = true
-z_index = 1
-position = Vector2(0, 50)
 
 [node name="Marker2D" type="Marker2D" parent="Body"]
 position = Vector2(0, -65)
@@ -132,5 +131,3 @@ position = Vector2(0, -65)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)
 shape = SubResource("CapsuleShape2D_j0ulj")
-
-[connection signal="die" from="Body/Damageable" to="." method="_on_damageable_die"]

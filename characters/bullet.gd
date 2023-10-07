@@ -16,7 +16,7 @@ func _process(delta):
 func _on_body_entered(_body):
 	if _body.is_in_group("Player"):
 		# colpito il player
-		_body.get_node("%Damageable").damage()
+		_body.get_node("Damageable").damage()
 	if not impacted:
 		explode()
 

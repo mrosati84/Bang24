@@ -20,6 +20,8 @@ var last_mouse_position : Vector2 = Vector2.ZERO
 func _ready():
 	if not controllable:
 		camera.queue_free()
+	
+	MessageBus.player_died.connect(_on_player_died)
 
 func _physics_process(_delta):
 	if not controllable:
@@ -75,5 +77,8 @@ func fire(pos, rot):
 		
 		get_tree().root.add_child(b)
 
-func _on_damageable_die():
-	queue_free()
+func _on_player_died(player: CharacterBody2D):
+	if player.get_instance_id() == get_instance_id():
+		player.queue_free()
+		print("sono morto")
+		print(player.get_instance_id())
