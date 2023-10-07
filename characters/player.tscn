@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://cpi8ktierddsl"]
+[gd_scene load_steps=21 format=3 uid="uid://cpi8ktierddsl"]
 
 [ext_resource type="Texture2D" uid="uid://disae1uwtwadc" path="res://art/Blue/Bodies/body_halftrack.png" id="1_185va"]
 [ext_resource type="Script" path="res://characters/player.gd" id="1_fsec1"]
 [ext_resource type="Script" path="res://characters/player_camera.gd" id="2_6vc3i"]
 [ext_resource type="Texture2D" uid="uid://caffi28754mta" path="res://art/Blue/Weapons/turret_01_mk1.png" id="2_x5s4s"]
+[ext_resource type="PackedScene" uid="uid://bwjjsr52d82f5" path="res://characters/explosion.tscn" id="3_ff8o5"]
 [ext_resource type="PackedScene" uid="uid://cbf3bakx78k15" path="res://components/damageable.tscn" id="4_yws8i"]
 [ext_resource type="PackedScene" uid="uid://cxsjelq50er6p" path="res://characters/bullet.tscn" id="6_m2t0r"]
 
@@ -101,6 +102,7 @@ height = 84.0
 z_index = 1
 script = ExtResource("1_fsec1")
 bullet = ExtResource("6_m2t0r")
+explosion = ExtResource("3_ff8o5")
 metadata/_edit_group_ = true
 
 [node name="Damageable" parent="." instance=ExtResource("4_yws8i")]

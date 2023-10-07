@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var acceleration = 0.1
 @export var controllable = true
 @export var bullet : PackedScene
+@export var explosion : PackedScene
 
 # oggetto di riferimento che punta sempre davanti al carro
 # e viene usato per dare la direzione di movimento in avanti
@@ -79,6 +80,13 @@ func fire(pos, rot):
 
 func _on_player_died(player: CharacterBody2D):
 	if player.get_instance_id() == get_instance_id():
+		explode()
 		player.queue_free()
 		print("sono morto")
 		print(player.get_instance_id())
+
+func explode():
+	var e = explosion.instantiate()
+	e.global_position = global_position
+	e.scale = Vector2(5, 5)
+	get_parent().add_child(e)
