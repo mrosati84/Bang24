@@ -1,7 +1,5 @@
 extends CharacterBody2D
 
-signal damage_taken
-
 @export var speed_module : float = 150.0
 @export var body_rotation_smoothing = 0.02
 @export var turret_rotation_smoothing = 0.05

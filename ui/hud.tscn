@@ -4,7 +4,7 @@
 
 [node name="HUD" type="CanvasLayer"]
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="HUDContainer" type="PanelContainer" parent="."]
 self_modulate = Color(1, 1, 1, 0)
 anchors_preset = 10
 anchor_right = 1.0
@@ -12,48 +12,88 @@ offset_bottom = 96.0
 grow_horizontal = 2
 theme = ExtResource("1_j17v7")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainerLife" type="MarginContainer" parent="HUDContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 
-[node name="Life" type="GridContainer" parent="PanelContainer/MarginContainer"]
+[node name="LifeGrid" type="GridContainer" parent="HUDContainer/MarginContainerLife"]
 layout_mode = 2
 columns = 2
 
-[node name="LifeLabel" type="Label" parent="PanelContainer/MarginContainer/Life"]
+[node name="LifeLabel" type="Label" parent="HUDContainer/MarginContainerLife/LifeGrid"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "LIFE"
 
-[node name="LifeValue" type="Label" parent="PanelContainer/MarginContainer/Life"]
+[node name="LifeValue" type="Label" parent="HUDContainer/MarginContainerLife/LifeGrid"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "100"
 
-[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainerPlayers" type="MarginContainer" parent="HUDContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 
-[node name="Players" type="GridContainer" parent="PanelContainer/MarginContainer2"]
+[node name="PlayersGrid" type="GridContainer" parent="HUDContainer/MarginContainerPlayers"]
 layout_mode = 2
 
-[node name="PlayersLabel" type="Label" parent="PanelContainer/MarginContainer2/Players"]
+[node name="PlayersLabel" type="Label" parent="HUDContainer/MarginContainerPlayers/PlayersGrid"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Players"
 
-[node name="Label3" type="Label" parent="PanelContainer/MarginContainer2/Players"]
+[node name="Label3" type="Label" parent="HUDContainer/MarginContainerPlayers/PlayersGrid"]
 layout_mode = 2
 text = "Gianni"
 
-[node name="Label2" type="Label" parent="PanelContainer/MarginContainer2/Players"]
+[node name="Label2" type="Label" parent="HUDContainer/MarginContainerPlayers/PlayersGrid"]
 layout_mode = 2
 text = "Mirko"
 
-[node name="Label4" type="Label" parent="PanelContainer/MarginContainer2/Players"]
+[node name="Label4" type="Label" parent="HUDContainer/MarginContainerPlayers/PlayersGrid"]
 layout_mode = 2
 text = "Giancarlo"
+
+[node name="GameOverPanel" type="PanelContainer" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -102.5
+offset_right = 300.0
+offset_bottom = 102.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_j17v7")
+
+[node name="GameOver" type="MarginContainer" parent="GameOverPanel"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="GameOverGrid" type="GridContainer" parent="GameOverPanel/GameOver"]
+layout_mode = 2
+
+[node name="GameOverLabel" type="Label" parent="GameOverPanel/GameOver/GameOverGrid"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 100
+text = "GAME OVER!"
+
+[node name="RestartButton" type="Button" parent="GameOverPanel/GameOver/GameOverGrid"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "RESTART"

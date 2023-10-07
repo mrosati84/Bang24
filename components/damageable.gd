@@ -7,14 +7,17 @@ signal die
 
 var player : CharacterBody2D
 var main : Node2D
+var life_value : Label
+var game_over : PanelContainer
 
 func _ready():
-	player = get_parent()
+	player = get_parent().get_parent()
 	main = player.get_parent()
+	
+	life_value = main.get_node("HUD/HUDContainer/MarginContainerLife/LifeGrid/LifeValue")
+	game_over = main.get_node("HUD/GameOverPanel/")
+	
 	$ProgressBar.value = life
-
-func _process(_delta):
-	rotation = -player.global_rotation
 
 func damage():
 	if alive:
@@ -23,9 +26,15 @@ func damage():
 		
 		# set life value in the HUD
 		if player.controllable:
-			var life_value : Label = main.get_node("HUD/PanelContainer/MarginContainer/Life/LifeValue")
 			life_value.text = str(life)
 		
-		if life == 0:
-			alive = false
-			die.emit()
+			if life == 0:
+				alive = false
+				# voglio mostrare il game over solo
+				# se il player è quello controllabile
+				game_over.visible = true
+				die.emit()
+		else:
+			if life == 0:
+				alive = false
+				die.emit()
