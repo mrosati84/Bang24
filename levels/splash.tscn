@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://cylfujnjhaexj"]
+
+[ext_resource type="Texture2D" uid="uid://b0fjwd85b8wqd" path="res://art/splash.png" id="1_jrigd"]
+[ext_resource type="Script" path="res://levels/splash.gd" id="1_km572"]
+[ext_resource type="Texture2D" uid="uid://c3bxmwosm6a4a" path="res://art/background.png" id="1_lsiv4"]
+
+[node name="splash" type="Node2D"]
+script = ExtResource("1_km572")
+
+[node name="Background" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_lsiv4")
+
+[node name="Splash" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_jrigd")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Play" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -52.5
+offset_top = 151.0
+offset_right = 52.5
+offset_bottom = 214.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "PLAY"
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Bang24"
-run/main_scene="res://levels/main.tscn"
+run/main_scene="res://levels/splash.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
