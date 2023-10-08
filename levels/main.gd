@@ -12,6 +12,8 @@ func _ready():
 	restart_button.connect("pressed", _on_restart_button_pressed)
 
 func _on_restart_button_pressed():
+	$TankRespawn.play()
+	
 	game_over.visible = false
 	life_value.text = str(100)
 	var p = player.instantiate()

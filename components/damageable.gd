@@ -19,16 +19,26 @@ func _ready():
 
 func damage():
 	if alive:
+		$TankHit.play()
+		
 		life -= 20
 		$ProgressBar.value = life
 		
 		# set life value in the HUD
 		if player.controllable:
 			life_value.text = str(life)
+			
+			# if life is below a certain threshold: play an alarm sound
+			if life <= 20:
+				$TankLowLife.play()
 		
 		if life == 0:
+			$TankExplode.play()
+			
 			MessageBus.player_died.emit(player)
 			alive = false
 			
 			if player.controllable:
+				#TODO:
+#				center the game_over panel on the exploded player
 				game_over.visible = true

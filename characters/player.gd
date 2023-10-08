@@ -39,6 +39,7 @@ func _physics_process(_delta):
 			rotate_turret()
 		if not body.is_playing():
 			body.play("walk")
+			$TankMove.play()
 	else:
 		body.stop()
 
@@ -70,6 +71,8 @@ func fire(pos, rot):
 	# cooldown che dura quanto l'animazione
 	if not turret.is_playing():
 		turret.play("fire")
+		$TankShoot.play()
+		
 		var b = bullet.instantiate()
 		
 		#@TODO: retrieve fields from $Turret instead of passing them
@@ -82,11 +85,12 @@ func _on_player_died(player: CharacterBody2D):
 	if player.get_instance_id() == get_instance_id():
 		explode()
 		player.queue_free()
-		print("sono morto")
-		print(player.get_instance_id())
+		print("sono morto" + str(player.get_instance_id()))
 
 func explode():
 	var e = explosion.instantiate()
 	e.global_position = global_position
 	e.scale = Vector2(5, 5)
+	$TankExplode.play()
+	
 	get_parent().add_child(e)

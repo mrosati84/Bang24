@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cxsjelq50er6p"]
+[gd_scene load_steps=6 format=3 uid="uid://cxsjelq50er6p"]
 
 [ext_resource type="Script" path="res://characters/bullet.gd" id="1_7o40a"]
 [ext_resource type="PackedScene" uid="uid://bwjjsr52d82f5" path="res://characters/explosion.tscn" id="2_f3fib"]
 [ext_resource type="Texture2D" uid="uid://dqi4yixvchwnw" path="res://art/bullet.png.png" id="2_jdrv4"]
+[ext_resource type="AudioStream" uid="uid://dguhj3s0txgxq" path="res://audio/sfx/wall_hit.wav" id="4_yr4u2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j277a"]
 radius = 33.3333
@@ -22,5 +23,9 @@ texture = ExtResource("2_jdrv4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
 shape = SubResource("CapsuleShape2D_j277a")
+
+[node name="GenericHit" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -100)
+stream = ExtResource("4_yr4u2")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

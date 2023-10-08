@@ -26,6 +26,8 @@ func explode():
 	$CollisionShape2D.set_deferred("disabled", true)
 	impacted = true
 	
+	$GenericHit.play()
+	
 	# add the explosion and assign it the bullet position
 	var e = explosion.instantiate()
 	e.global_position = global_position

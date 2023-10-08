@@ -324,8 +324,6 @@ animations = [{
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_ync2j")
 animation = &"explosion_3"
-frame = 24
-frame_progress = 1.0
 script = ExtResource("76_o3xoq")
 
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
