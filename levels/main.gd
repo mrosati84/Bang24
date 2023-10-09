@@ -22,6 +22,10 @@ func _ready():
 		for spawn_point in get_tree().get_nodes_in_group("SpawnPoint"):
 			if spawn_point.name == str(player_index):
 				current_player.global_position = spawn_point.global_position
+				
+				if p != multiplayer.get_unique_id():
+					current_player.controllable = false
+				
 				add_child(current_player)
 		
 		player_index += 1
