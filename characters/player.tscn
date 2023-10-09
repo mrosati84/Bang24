@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cpi8ktierddsl"]
+[gd_scene load_steps=27 format=3 uid="uid://cpi8ktierddsl"]
 
 [ext_resource type="Texture2D" uid="uid://disae1uwtwadc" path="res://art/Blue/Bodies/body_halftrack.png" id="1_185va"]
 [ext_resource type="Script" path="res://characters/player.gd" id="1_fsec1"]
@@ -103,6 +103,12 @@ animations = [{
 radius = 29.0
 height = 84.0
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_h13sd"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 1
 script = ExtResource("1_fsec1")
@@ -160,3 +166,6 @@ stream = ExtResource("9_aibtk")
 
 [node name="TankExplode" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_q63j8")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_h13sd")
