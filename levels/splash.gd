@@ -62,6 +62,7 @@ func _on_join_pressed():
 	$SplashCamera.enabled = false
 	visible = false
 	$"../Level".visible = true
+	$"../Level/HUD".visible = true
 
 func _on_quit_pressed():
 	get_tree().quit()
