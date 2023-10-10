@@ -18,6 +18,9 @@ extends CharacterBody2D
 
 var last_mouse_position : Vector2 = Vector2.ZERO
 
+func _enter_tree():
+	set_multiplayer_authority(name.to_int())
+
 func _ready():
 	if not controllable:
 		camera.queue_free()
@@ -25,7 +28,7 @@ func _ready():
 	MessageBus.player_died.connect(_on_player_died)
 
 func _physics_process(_delta):
-	if not controllable:
+	if not controllable or !is_multiplayer_authority():
 		return
 
 	# gestisce rotazione del carro

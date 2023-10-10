@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dai76uoqg5vxf"]
+
+[node name="MultiplayerSpawner" type="Node2D"]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://characters/player.tscn")

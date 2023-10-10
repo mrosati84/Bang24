@@ -9,8 +9,8 @@ var life_value : Label
 var game_over : PanelContainer
 
 func _ready():
-	player = get_parent()
-	main = player.get_parent()
+	player = get_node("/root/Main/SpawnPath/Player")
+	main = get_node("/root/Main")
 	
 	life_value = main.get_node("HUD/HUDContainer/MarginContainerLife/LifeGrid/LifeValue")
 	game_over = main.get_node("HUD/GameOverPanel/")
