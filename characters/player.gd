@@ -4,7 +4,6 @@ extends CharacterBody2D
 @export var body_rotation_smoothing = 0.02
 @export var turret_rotation_smoothing = 0.05
 @export var acceleration = 0.1
-@export var controllable = true
 @export var bullet : PackedScene
 @export var explosion : PackedScene
 
@@ -22,13 +21,13 @@ func _enter_tree():
 	set_multiplayer_authority(name.to_int())
 
 func _ready():
-	if not controllable:
-		camera.queue_free()
+	if not is_multiplayer_authority():
+		$PlayerCamera.enabled = false
 	
 	MessageBus.player_died.connect(_on_player_died)
 
 func _physics_process(_delta):
-	if not controllable or !is_multiplayer_authority():
+	if not is_multiplayer_authority():
 		return
 
 	# gestisce rotazione del carro
@@ -58,9 +57,8 @@ func _physics_process(_delta):
 	move_and_slide()
 
 func _process(_delta):
-	if Input.is_action_just_pressed("fire"):
-		if controllable:
-			fire(fire_marker.global_position, fire_marker.global_rotation)
+	if Input.is_action_just_pressed("fire") and is_multiplayer_authority():
+		fire(fire_marker.global_position, fire_marker.global_rotation)
 
 func rotate_turret():
 	# usa lerp_angle per una rotazione morbida
