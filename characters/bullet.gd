@@ -2,12 +2,9 @@ extends Area2D
 
 @export var bullet_speed : float = 200
 @export var explosion : PackedScene
+@export var direction : Vector2
 
-var direction : Vector2
 var impacted : bool = false
-
-func _enter_tree():
-	set_multiplayer_authority(name.to_int())
 
 func _ready():
 	direction = Vector2.UP.rotated(rotation)

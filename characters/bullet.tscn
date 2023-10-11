@@ -18,6 +18,14 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/sync = true
 properties/1/watch = false
+properties/2/path = NodePath(".:direction")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
+properties/3/path = NodePath(".:bullet_speed")
+properties/3/spawn = true
+properties/3/sync = true
+properties/3/watch = false
 
 [node name="Bullet" type="Area2D" groups=["Bullet"]]
 z_index = 1
