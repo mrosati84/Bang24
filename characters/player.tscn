@@ -113,30 +113,6 @@ properties/2/path = NodePath(".:rotation")
 properties/2/spawn = true
 properties/2/sync = true
 properties/2/watch = false
-properties/3/path = NodePath("Body/Marker2D:position")
-properties/3/spawn = true
-properties/3/sync = true
-properties/3/watch = false
-properties/4/path = NodePath("Body/Marker2D:rotation")
-properties/4/spawn = true
-properties/4/sync = true
-properties/4/watch = false
-properties/5/path = NodePath(".:speed_module")
-properties/5/spawn = true
-properties/5/sync = true
-properties/5/watch = false
-properties/6/path = NodePath(".:body_rotation_smoothing")
-properties/6/spawn = true
-properties/6/sync = true
-properties/6/watch = false
-properties/7/path = NodePath(".:turret_rotation_smoothing")
-properties/7/spawn = true
-properties/7/sync = true
-properties/7/watch = false
-properties/8/path = NodePath(".:acceleration")
-properties/8/spawn = true
-properties/8/sync = true
-properties/8/watch = false
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 1
@@ -155,9 +131,6 @@ sprite_frames = SubResource("SpriteFrames_obq75")
 animation = &"walk"
 frame = 1
 frame_progress = 0.18333
-
-[node name="Marker2D" type="Marker2D" parent="Body"]
-position = Vector2(0, -65)
 
 [node name="Turret" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3j8xk")

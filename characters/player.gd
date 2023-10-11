@@ -6,10 +6,8 @@ extends CharacterBody2D
 @export var acceleration = 0.1
 @export var bullet : PackedScene
 @export var explosion : PackedScene
+@export var sync_up : Vector2
 
-# oggetto di riferimento che punta sempre davanti al carro
-# e viene usato per dare la direzione di movimento in avanti
-@onready var forward_marker : Marker2D = $Body/Marker2D
 @onready var fire_marker : Marker2D = $Turret/Marker2D
 @onready var body : AnimatedSprite2D = $Body
 @onready var turret : AnimatedSprite2D = $Turret
@@ -29,6 +27,8 @@ func _ready():
 func _physics_process(_delta):
 	if not is_multiplayer_authority():
 		return
+
+	sync_up = up_direction * rotation
 
 	# gestisce rotazione del carro
 	var body_rotation = Input.get_axis("left", "right")
@@ -50,8 +50,11 @@ func _physics_process(_delta):
 	# la direzione è data dalla direzione verso il forward marker, che è sempre
 	# diretto in avanti rispetto al carro, e all'asse up/down che decide se
 	# andare avanti o indietro.
-	var speed_direction : Vector2 = position.direction_to(forward_marker.get_global_position()) * Input.get_axis("down", "up")
-	velocity = velocity.lerp(speed_direction * speed_module, acceleration)
+	
+	var r = Vector2(sin(rotation), cos(rotation))
+	var fw = Input.get_axis("up", "down")
+
+	velocity = velocity.lerp(Vector2(-fw, fw) * r * speed_module, acceleration)
 	
 	rotate_turret()
 	move_and_slide()
