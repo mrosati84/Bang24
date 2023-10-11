@@ -6,6 +6,9 @@ extends Area2D
 var direction : Vector2
 var impacted : bool = false
 
+func _enter_tree():
+	set_multiplayer_authority(name.to_int())
+
 func _ready():
 	direction = Vector2.UP.rotated(rotation)
 
@@ -14,11 +17,12 @@ func _process(delta):
 		position += direction * delta * bullet_speed
 
 func _on_body_entered(_body):
-	if _body.is_in_group("Player"):
-		# colpito il player
-		_body.get_node("Damageable").damage()
-	if not impacted:
-		explode()
+	pass
+#	if _body.is_in_group("Player"):
+#		# colpito il player
+#		_body.get_node("Damageable").damage()
+#	if not impacted:
+#		explode()
 
 func explode():
 	# hide the bullet sprite

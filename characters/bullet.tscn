@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxsjelq50er6p"]
+[gd_scene load_steps=7 format=3 uid="uid://cxsjelq50er6p"]
 
 [ext_resource type="Script" path="res://characters/bullet.gd" id="1_7o40a"]
 [ext_resource type="PackedScene" uid="uid://bwjjsr52d82f5" path="res://characters/explosion.tscn" id="2_f3fib"]
@@ -9,7 +9,17 @@
 radius = 33.3333
 height = 133.333
 
-[node name="Bullet" type="Area2D"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_c1oee"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
+
+[node name="Bullet" type="Area2D" groups=["Bullet"]]
 z_index = 1
 scale = Vector2(0.15, 0.15)
 script = ExtResource("1_7o40a")
@@ -27,5 +37,8 @@ shape = SubResource("CapsuleShape2D_j277a")
 [node name="GenericHit" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -100)
 stream = ExtResource("4_yr4u2")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_c1oee")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

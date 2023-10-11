@@ -6,12 +6,12 @@ extends CharacterBody2D
 @export var acceleration = 0.1
 @export var bullet : PackedScene
 @export var explosion : PackedScene
-@export var sync_up : Vector2
 
-@onready var fire_marker : Marker2D = $Turret/Marker2D
 @onready var body : AnimatedSprite2D = $Body
 @onready var turret : AnimatedSprite2D = $Turret
+@onready var turret_marker : Marker2D = $Turret/TurretMarker
 @onready var camera : Camera2D = $PlayerCamera
+@onready var multiplayer_manager = get_node("/root/Main/MultiplayerManager")
 
 var last_mouse_position : Vector2 = Vector2.ZERO
 
@@ -27,8 +27,6 @@ func _ready():
 func _physics_process(_delta):
 	if not is_multiplayer_authority():
 		return
-
-	sync_up = up_direction * rotation
 
 	# gestisce rotazione del carro
 	var body_rotation = Input.get_axis("left", "right")
@@ -61,7 +59,7 @@ func _physics_process(_delta):
 
 func _process(_delta):
 	if Input.is_action_just_pressed("fire") and is_multiplayer_authority():
-		fire(fire_marker.global_position, fire_marker.global_rotation)
+		fire()
 
 func rotate_turret():
 	# usa lerp_angle per una rotazione morbida
@@ -71,19 +69,19 @@ func rotate_turret():
 	
 	turret.global_rotation = lerp_angle(r, angle + PI/2, turret_rotation_smoothing)
 
-func fire(pos, rot):
+func fire():
 	# cooldown che dura quanto l'animazione
 	if not turret.is_playing():
 		turret.play("fire")
 		$TankShoot.play()
 		
-		var b = bullet.instantiate()
-		
-		#@TODO: retrieve fields from $Turret instead of passing them
-		b.global_position = pos
-		b.global_rotation = rot
-		
-		get_tree().root.add_child(b)
+		multiplayer_manager.rpc_id(1, "fire", turret_marker.global_position, turret_marker.global_rotation)
+
+#		var b = bullet.instantiate()
+#		#@TODO: retrieve fields from $Turret instead of passing them
+#		b.global_position = turret_marker.global_position
+#		b.global_rotation = turret_marker.global_rotation
+#		get_tree().root.add_child(b)
 
 func _on_player_died(player: CharacterBody2D):
 	if player.get_instance_id() == get_instance_id():
