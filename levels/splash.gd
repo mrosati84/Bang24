@@ -1,14 +1,12 @@
 extends Node2D
 
-@export var address = "127.0.0.1"
-@export var port = 8910
+@export var dedicated_server_port = 8910
 @export var max_players = 8
 @export var player_scene : PackedScene
 
 @onready var is_server = "--server" in OS.get_cmdline_args()
 
 var rng = RandomNumberGenerator.new()
-
 var adjectives = ["Brave", "Swift", "Clever", "Curious", "Silent", "Mighty"]
 var nouns = ["Wolf", "Tiger", "Eagle", "Lion", "Bear", "Cheetah"]
 
@@ -34,11 +32,22 @@ func start_network(server: bool):
 		multiplayer.peer_connected.connect(create_player)
 		multiplayer.peer_disconnected.connect(destroy_player)
 		
-		peer.create_server(port)
-		print('server listening on localhost ' + str(port))
+		peer.create_server(dedicated_server_port)
+		print('[SERVER] Server started! Listening on:'+ str(dedicated_server_port))
 	else:
-		var targetIP = "localhost"
-		peer.create_client(targetIP, port)
+		var server_ip_port = $ServerIpPort.text.strip_edges()
+		var parts = server_ip_port.split(":")
+		var server_address
+		var server_port
+		
+		if parts.size() == 2:
+			server_address = parts[0].strip_edges()
+			server_port = parts[1].to_int()
+		else:
+			print("[CLIENT] ERROR: Invalid 'address:port' format!")
+
+		print('[CLIENT] Client joining server at '+ str(server_address) +':'+ str(server_port))
+		peer.create_client(server_address, server_port)
 
 	multiplayer.multiplayer_peer = peer
 

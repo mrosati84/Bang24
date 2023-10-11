@@ -8,6 +8,7 @@
 [node name="Splash" type="Node2D"]
 script = ExtResource("1_km572")
 player_scene = ExtResource("2_8u8n4")
+metadata/_edit_vertical_guides_ = [169.0, -165.0]
 
 [node name="Background" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
@@ -27,9 +28,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -165.0
-offset_top = 55.0
+offset_top = 100.0
 offset_right = 169.0
-offset_bottom = 91.0
+offset_bottom = 136.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 20
@@ -37,24 +38,46 @@ text = "Join"
 
 [node name="Quit" type="Button" parent="."]
 offset_left = -165.0
-offset_top = 105.0
+offset_top = 145.0
 offset_right = 169.0
-offset_bottom = 141.0
+offset_bottom = 181.0
 theme_override_font_sizes/font_size = 20
 text = "Quit"
 
 [node name="PlayerName" type="LineEdit" parent="."]
-offset_left = -62.0
+offset_left = -43.0
 offset_top = 14.0
-offset_right = 166.0
+offset_right = 169.0
 offset_bottom = 45.0
+placeholder_text = "Nickname"
+alignment = 1
+max_length = 25
 
 [node name="PlayerNameLabel" type="Label" parent="."]
-offset_left = -165.0
+offset_left = -164.0
 offset_top = 16.0
-offset_right = -68.0
+offset_right = -67.0
 offset_bottom = 42.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "Player name"
+
+[node name="ServerIpPort" type="LineEdit" parent="."]
+offset_left = -43.0
+offset_top = 52.0
+offset_right = 169.0
+offset_bottom = 83.0
+text = "127.0.0.1:8910"
+placeholder_text = "127.0.0.1:8910"
+alignment = 1
+max_length = 25
+
+[node name="ServerIPPortLabel" type="Label" parent="."]
+offset_left = -164.0
+offset_top = 56.0
+offset_right = -58.0
+offset_bottom = 82.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Server IP:Port"
 
 [connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
