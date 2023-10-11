@@ -22,7 +22,7 @@ func generate_random_nickname():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if "--server" in OS.get_cmdline_args():
+	if is_server:
 		start_network(true)
 		
 	$PlayerName.text = generate_random_nickname();
@@ -43,7 +43,7 @@ func start_network(server: bool):
 	multiplayer.multiplayer_peer = peer
 
 func create_player(id):
-	print("CREATE PLAYER")
+	print("Adding player to scene with id " + str(id))
 
 	# Instantiate a new player for this client.
 	var p = player_scene.instantiate()
@@ -59,7 +59,11 @@ func destroy_player(id):
 
 func _on_join_pressed():
 	start_network(false)
+	
+	# disable the splash screen camera
 	$SplashCamera.enabled = false
+	
+	# hide the splash screen and show the level, scene and HUD
 	visible = false
 	$"../Level".visible = true
 	$"../Level/HUD".visible = true
