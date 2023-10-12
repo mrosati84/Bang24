@@ -1,16 +1,20 @@
-extends Node2D
+extends Control
 
 @export var dedicated_server_port = 8910
 @export var max_players = 8
 @export var player_scene : PackedScene
 
 @onready var is_server = "--server" in OS.get_cmdline_args()
+@onready var player_name_handle = $PanelContainer/MarginContainer/VBoxContainer/PlayerName
+@onready var server_ip_port_handle = $PanelContainer/MarginContainer/VBoxContainer/ServerIpPort
 
-var rng = RandomNumberGenerator.new()
-var adjectives = ["Brave", "Swift", "Clever", "Curious", "Silent", "Mighty"]
-var nouns = ["Wolf", "Tiger", "Eagle", "Lion", "Bear", "Cheetah"]
+var music_bus = AudioServer.get_bus_index("Master")
 
 func generate_random_nickname():
+	var rng = RandomNumberGenerator.new()
+	var adjectives = ["Brave", "Swift", "Clever", "Curious", "Silent", "Mighty"]
+	var nouns = ["Wolf", "Tiger", "Eagle", "Lion", "Bear", "Cheetah"]
+	
 	var random_adjective = adjectives[randi() % adjectives.size()]
 	var random_noun = nouns[randi() % nouns.size()]
 	var my_random_number = str(int(rng.randf_range(0, 9999)))
@@ -23,7 +27,7 @@ func _ready():
 	if is_server:
 		start_network(true)
 		
-	$PlayerName.text = generate_random_nickname();
+	player_name_handle.text = generate_random_nickname();
 
 func start_network(server: bool):
 	var peer = ENetMultiplayerPeer.new()
@@ -33,9 +37,9 @@ func start_network(server: bool):
 		multiplayer.peer_disconnected.connect(destroy_player)
 		
 		peer.create_server(dedicated_server_port)
-		print('[SERVER] Server started! Listening on:'+ str(dedicated_server_port))
+		print('[SERVER] Server started! Listening on port: '+ str(dedicated_server_port))
 	else:
-		var server_ip_port = $ServerIpPort.text.strip_edges()
+		var server_ip_port = server_ip_port_handle.text.strip_edges()
 		var parts = server_ip_port.split(":")
 		var server_address
 		var server_port
@@ -56,7 +60,7 @@ func create_player(id):
 
 	# Instantiate a new player for this client.
 	var p = player_scene.instantiate()
-
+	
 	# Set the name, so players can figure out their local authority
 	p.name = str(id)
 
@@ -69,9 +73,6 @@ func destroy_player(id):
 func _on_join_pressed():
 	start_network(false)
 	
-	# disable the splash screen camera
-	$SplashCamera.enabled = false
-	
 	# hide the splash screen and show the level, scene and HUD
 	visible = false
 	$"../Level".visible = true
@@ -79,3 +80,6 @@ func _on_join_pressed():
 
 func _on_quit_pressed():
 	get_tree().quit()
+
+func _on_texture_button_pressed():
+	AudioServer.set_bus_mute(music_bus, not AudioServer.is_bus_mute(music_bus))
