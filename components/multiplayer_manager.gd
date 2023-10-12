@@ -14,6 +14,7 @@ func fire(position, rotation):
 	var b = bullet.instantiate()
 	b.name = str(str(multiplayer.get_remote_sender_id()) + str(seq))
 	spawn_path.add_child(b, true)
+	seq += 1
 	
 	# QUESTA ROBA VIENE IGNORATA
 	b.global_position = position
