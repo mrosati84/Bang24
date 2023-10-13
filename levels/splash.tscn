@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://cylfujnjhaexj"]
 
-[ext_resource type="Texture2D" uid="uid://b0fjwd85b8wqd" path="res://art/splash.png" id="1_jrigd"]
 [ext_resource type="Script" path="res://levels/splash.gd" id="1_km572"]
 [ext_resource type="Texture2D" uid="uid://c3bxmwosm6a4a" path="res://art/background.png" id="1_lsiv4"]
 [ext_resource type="PackedScene" uid="uid://cpi8ktierddsl" path="res://characters/player.tscn" id="2_8u8n4"]
 [ext_resource type="Texture2D" uid="uid://bf155shidjeh0" path="res://art/settings_music_button_on.png" id="4_nihtm"]
+[ext_resource type="Texture2D" uid="uid://b0fjwd85b8wqd" path="res://art/logo.png" id="5_wufjc"]
 
 [node name="Splash" type="Control"]
 custom_minimum_size = Vector2(960, 640)
@@ -56,11 +56,11 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -67.0
-offset_top = 24.0
+offset_top = 32.0
 offset_right = 67.0
-offset_bottom = 152.0
+offset_bottom = 160.0
 grow_horizontal = 2
-texture = ExtResource("1_jrigd")
+texture = ExtResource("5_wufjc")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
