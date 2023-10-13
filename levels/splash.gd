@@ -24,14 +24,16 @@ func generate_random_nickname():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Error.hide()
+	
 	if is_server:
 		start_network(true)
-		
-	player_name_handle.text = generate_random_nickname();
+	else:
+		player_name_handle.text = generate_random_nickname();
 
 func start_network(server: bool):
 	var peer = ENetMultiplayerPeer.new()
-	
+		
 	if server:
 		multiplayer.peer_connected.connect(create_player)
 		multiplayer.peer_disconnected.connect(destroy_player)
@@ -47,11 +49,12 @@ func start_network(server: bool):
 		if parts.size() == 2:
 			server_address = parts[0].strip_edges()
 			server_port = parts[1].to_int()
+			
+			print('[CLIENT] Client joining server at '+ str(server_address) +':'+ str(server_port))
+			peer.create_client(server_address, server_port)
 		else:
 			print("[CLIENT] ERROR: Invalid 'address:port' format!")
-
-		print('[CLIENT] Client joining server at '+ str(server_address) +':'+ str(server_port))
-		peer.create_client(server_address, server_port)
+			#@TODO: show an error, don't let the user continue!			
 
 	multiplayer.multiplayer_peer = peer
 
@@ -69,8 +72,22 @@ func create_player(id):
 func destroy_player(id):
 	# Delete this peer's node.
 	$"../Level/SpawnPath".get_node(str(id)).queue_free()
+	
+func show_error(message):
+	$Error.text = "[ERROR] "+ str(message)
+	$Error.show()
 
 func _on_join_pressed():
+	if player_name_handle.text == "":
+		show_error("You must choose a nickname before joining!")
+		
+		return
+		
+	if server_ip_port_handle.text == "":
+		show_error("You must choose a server address:port before joining!")
+		
+		return
+	
 	start_network(false)
 	
 	# hide the splash screen and show the level, scene and HUD
