@@ -83,3 +83,8 @@ func _on_quit_pressed():
 
 func _on_texture_button_pressed():
 	AudioServer.set_bus_mute(music_bus, not AudioServer.is_bus_mute(music_bus))
+	
+	if AudioServer.is_bus_mute(music_bus):
+		$TextureButton.texture_normal = preload("res://art/settings_music_button_off.png")
+	else:
+		$TextureButton.texture_normal = preload("res://art/settings_music_button_on.png")
