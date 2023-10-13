@@ -75,7 +75,7 @@ func fire():
 		turret.play("fire")
 		$TankShoot.play()
 		
-		multiplayer_manager.rpc_id(1, "fire", turret_marker.global_position, turret_marker.global_rotation)
+		multiplayer_manager.rpc_id(1, "fire")
 
 #		var b = bullet.instantiate()
 #		#@TODO: retrieve fields from $Turret instead of passing them

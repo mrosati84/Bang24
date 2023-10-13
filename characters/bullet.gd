@@ -10,16 +10,16 @@ func _ready():
 	direction = Vector2.UP.rotated(rotation)
 
 func _process(delta):
-	if not impacted:
+	if not impacted and is_multiplayer_authority():
 		position += direction * delta * bullet_speed
 
 func _on_body_entered(_body):
-#	pass
+	pass
 #	if _body.is_in_group("Player"):
 #		# colpito il player
 #		_body.get_node("Damageable").damage()
-	if not impacted:
-		explode()
+#	if not impacted:
+#		explode()
 
 func explode():
 	# hide the bullet sprite
