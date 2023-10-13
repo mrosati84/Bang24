@@ -2,23 +2,24 @@ extends Area2D
 
 @export var bullet_speed : float = 200
 @export var explosion : PackedScene
+@export var direction : Vector2
 
-var direction : Vector2
 var impacted : bool = false
 
 func _ready():
 	direction = Vector2.UP.rotated(rotation)
 
 func _process(delta):
-	if not impacted:
+	if not impacted and is_multiplayer_authority():
 		position += direction * delta * bullet_speed
 
 func _on_body_entered(_body):
-	if _body.is_in_group("Player"):
-		# colpito il player
-		_body.get_node("Damageable").damage()
-	if not impacted:
-		explode()
+	pass
+#	if _body.is_in_group("Player"):
+#		# colpito il player
+#		_body.get_node("Damageable").damage()
+#	if not impacted and is_multiplayer_authority():
+#		explode()
 
 func explode():
 	# hide the bullet sprite
