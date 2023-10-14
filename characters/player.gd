@@ -69,19 +69,16 @@ func rotate_turret():
 	
 	turret.global_rotation = lerp_angle(r, angle + PI/2, turret_rotation_smoothing)
 
+@rpc("any_peer", "call_local")
+func play_fire():
+	turret.play("fire")
+	$TankShoot.play()
+
 func fire():
 	# cooldown che dura quanto l'animazione
 	if not turret.is_playing():
-		turret.play("fire")
-		$TankShoot.play()
-		
+		play_fire.rpc()
 		multiplayer_manager.rpc_id(1, "fire")
-
-#		var b = bullet.instantiate()
-#		#@TODO: retrieve fields from $Turret instead of passing them
-#		b.global_position = turret_marker.global_position
-#		b.global_rotation = turret_marker.global_rotation
-#		get_tree().root.add_child(b)
 
 func _on_player_died(player: CharacterBody2D):
 	if player.get_instance_id() == get_instance_id():

@@ -10,7 +10,8 @@ func fire():
 	var b = bullet.instantiate()
 	var sender_id = multiplayer.get_remote_sender_id()
 	var sender : CharacterBody2D = get_node("/root/Main/Level/SpawnPath/" + str(sender_id))
-	var turret_rotation = sender.get_node("Turret").global_rotation
+	var sender_turret = sender.get_node("Turret")
+	var turret_rotation = sender_turret.global_rotation
 	
 	b.transform = sender.transform.translated(Vector2(0, -60).rotated(turret_rotation))
 	b.rotation = turret_rotation
